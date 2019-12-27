@@ -41,5 +41,6 @@ for index in range(1, 19):
             except:
                 error_files.append(file_name)
             print(file_name)
-print('Ошибка загрузки:')
-print('\n'.join(error_files))
+if len(error_files) != 0:
+    print('Ошибка загрузки:')
+    print('\n'.join(error_files))
