@@ -1,5 +1,5 @@
 # Программа для подсчета количества форматов А4 в файлах PDF.
-# Copyright (C) 2019 Evgeniy Ipatov
+# Copyright (C) 2019 - 2020 Evgeniy Ipatov
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
