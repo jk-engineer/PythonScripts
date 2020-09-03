@@ -248,12 +248,13 @@ for index in range(0, documents_count):
 
 # Запись данных в файл в виде таблицы
 document = Document()
-table = document.add_table(rows=1, cols=3, style='Table Grid')
+table = document.add_table(rows=1, cols=4, style='Table Grid')
 # Шапка таблицы
 hdr_cells = table.rows[0].cells
 hdr_cells[0].text = '№ п/п'
 hdr_cells[1].text = 'Обозначение'
 hdr_cells[2].text = 'Наименование'
+hdr_cells[3].text = 'Примечание'
 # Порядковый номер, обозначение, наименование документа
 for number, p_number, p_title in output_data:
     row_cells = table.add_row().cells
