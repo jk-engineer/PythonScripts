@@ -1,5 +1,5 @@
 # Программа для проверки актуальности стандартов через сайт Техэксперт http://docs.cntd.ru/.
-# Copyright (C) 2019 Evgeniy Ipatov
+# Copyright (C) 2019 - 2020 Evgeniy Ipatov
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ if len(file_names) == 0:
     sys.exit()
 
 # Выбор необходимого файла с названиями стандартов
-print('Выберите файл, который содержит названия проверяемых стандартов (введите число). Для выбора всех файлов введите 0 (нуль):\n')
+print('\nВыберите файл, который содержит названия проверяемых стандартов (введите число). Для выбора всех файлов введите 0 (нуль):\n')
 for index in range(1, len(file_names) + 1):
     print(str(index) + ' -> ' + str(file_names[index - 1]))
 print()
@@ -107,3 +107,5 @@ if len(check_need_links) != 0:
     if answer == 'y' or answer == 'д':
         for link in check_need_links:
             webbrowser.open_new_tab(link)
+if len(failed_names) == 0 and len(check_need_links) == 0:
+    print('Все стандарты имеют актуальный статус')

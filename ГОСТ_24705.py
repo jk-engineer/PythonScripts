@@ -1,6 +1,6 @@
 # Данная программа создает список шагов диаметров метрических резьб по ГОСТ 24705.
 # http://docs.cntd.ru/document/1200038934/
-# Copyright (C) 2019 Evgeniy Ipatov
+# Copyright (C) 2019 - 2020 Evgeniy Ipatov
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

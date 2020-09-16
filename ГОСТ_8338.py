@@ -1,6 +1,6 @@
 # Данная программа создает список типоразмеров подшипников по ГОСТ 8338.
 # http://docs.cntd.ru/document/1200012895
-# Copyright (C) 2019 Evgeniy Ipatov
+# Copyright (C) 2019 - 2020 Evgeniy Ipatov
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
