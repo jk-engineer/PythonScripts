@@ -18,10 +18,7 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 
-import os
-from os import listdir
-from os.path import isfile, join
-import shutil
+import pathlib
 import sys
 
 
@@ -29,13 +26,9 @@ def get_document_name(file_name: str, file_extension: str, separator: str):
     return file_name.replace(file_extension, '').split(separator)[0]
 
 
-# Получение текущей директории
-current_directory = os.path.dirname(os.path.abspath(__file__))
-# Получение имен файлов, имеющихся в текущей директории
-file_names = [name for name in listdir(current_directory) if isfile(join(current_directory, name))]
 # Выбор файлов с расширением pdf
-file_names = [name for name in file_names if os.path.splitext(name.lower())[1] == '.pdf']
-file_names.sort()
+p = pathlib.Path('.').glob('*.pdf')
+file_names = sorted([name for name in p if name.is_file()])
 
 # Выход из программы при отсутствии файлов pdf
 if len(file_names) == 0:
@@ -43,12 +36,12 @@ if len(file_names) == 0:
     sys.exit()
 
 # Создание резервной папки для старых версий файлов
-if os.path.exists('Замененные'):
+if pathlib.Path('Замененные').exists():
     old_files_folder_name = 'Замененные'
-elif os.path.exists('Заменённые'):
+elif pathlib.Path('Заменённые').exists():
     old_files_folder_name = 'Заменённые'
 else:
-    os.mkdir('Замененные')
+    pathlib.Path('Замененные').mkdir()
     old_files_folder_name = 'Замененные'
 
 # Поиск дублирующихся файлов
@@ -59,20 +52,21 @@ separator = '_'
 for name in file_names:
     if name in duplicates:
         continue
-    file_extension = os.path.splitext(name)[1]
-    current_name = get_document_name(name, file_extension, separator)
-    duplicates = [f_name for f_name in file_names if get_document_name(f_name, file_extension, separator) == current_name]
+    file_extension = pathlib.Path(name).suffix
+    current_name = get_document_name(str(name), file_extension, separator)
+    duplicates = [f_name for f_name in file_names if get_document_name(str(f_name), file_extension, separator) == current_name]
     # При наличии нескольких файлов с одинаковыми начальными частями в имени дубликаты с более ранней датой изменения перемещаются в резервную папку
     if len(duplicates) > 1:
-        m_dates = [os.path.getmtime(f_name) for f_name in duplicates]
+        m_dates = [f_name.stat().st_mtime for f_name in duplicates]
         max_date = max(m_dates)
         latest_file_name = duplicates[m_dates.index(max_date)]
         # Перемещение старых версий файлов в резервную папку
         for move_name in duplicates:
             if move_name == latest_file_name:
                 continue
-            output_data.append(move_name)
-            shutil.move(move_name, f'{old_files_folder_name}/{move_name}')
+            output_data.append(str(move_name))
+            new_name = pathlib.Path(old_files_folder_name) / move_name
+            move_name.rename(new_name)
 
 # Вывод имен перемещенных файлов
 print(f'\nПеремещены файлы ({str(len(output_data))}):\n\n')

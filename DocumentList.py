@@ -15,20 +15,14 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 
-import os
+import pathlib
 import sys
-from os import listdir
-from os.path import isfile, join
 from docx import Document
 
 
-# Получение текущей директории
-current_directory = os.path.dirname(os.path.abspath(__file__))
-# Получение имен файлов, имеющихся в текущей директории
-file_names = [name for name in listdir(current_directory) if isfile(join(current_directory, name))]
 # Выбор файлов с расширением pdf
-file_names = [name for name in file_names if os.path.splitext(name.lower())[1] == '.pdf']
-file_names.sort()
+p = pathlib.Path('.').glob('*.pdf')
+file_names = sorted([name for name in p if name.is_file()])
 
 # Выход из программы при отсутствии файлов pdf
 if len(file_names) == 0:
@@ -239,7 +233,7 @@ documents_count = len(file_names)
 output_data = []
 for index in range(0, documents_count):
     # Разделение имени файла на обозначение и наименование
-    file_name = os.path.splitext(file_names[index])[0]
+    file_name = file_names[index].stem
     values = file_name.split()
     if values[1] in doc_codes:
         part_number = values[0] + ' ' + values[1]

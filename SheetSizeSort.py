@@ -15,10 +15,8 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 
-import os
+import pathlib
 import sys
-from os import listdir
-from os.path import isfile, join
 from PyPDF2 import PdfFileReader, PdfFileWriter
 
 
@@ -30,7 +28,7 @@ def check_size(standard_value, current_value):
     """
     if standard_value <= 150 and abs(standard_value - current_value) <= 1.5:
         return True
-    elif standard_value > 150 and standard_value <= 600 and abs(standard_value - current_value) <= 2.0:
+    elif 150 < standard_value <= 600 and abs(standard_value - current_value) <= 2.0:
         return True
     elif standard_value > 600 and abs(standard_value - current_value) <= 3.0:
         return True
@@ -38,13 +36,9 @@ def check_size(standard_value, current_value):
         return False
 
 
-# Получение текущей директории
-current_directory = os.path.dirname(os.path.abspath(__file__))
-# Получение имен файлов, имеющихся в текущей директории
-file_names = [name for name in listdir(current_directory) if isfile(join(current_directory, name))]
 # Выбор файлов с расширением pdf
-file_names = [name for name in file_names if os.path.splitext(name.lower())[1] == '.pdf']
-file_names.sort()
+p = pathlib.Path('.').glob('*.pdf')
+file_names = sorted([name for name in p if name.is_file()])
 
 # Выход из программы при отсутствии файлов pdf
 if len(file_names) == 0:
@@ -113,9 +107,10 @@ non_standard = 'A_NonStandard'
 reserved_names = [name + '.pdf' for name in sheet_size_height.keys()]
 reserved_names.append(non_standard + '.pdf')
 for name in reserved_names:
-    if name.lower() in [name.lower() for name in file_names]:
-        os.remove(name)
-        file_names.remove(name)
+    if name.lower() in [str(name).lower() for name in file_names]:
+        del_name = pathlib.Path(name)
+        del_name.unlink()
+        file_names.remove(del_name)
 
 convert_pt_to_mm = 25.4 / 72.0
 output_data = {}

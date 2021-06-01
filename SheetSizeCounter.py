@@ -15,20 +15,14 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 
-import os
+import pathlib
 import sys
-from os import listdir
-from os.path import isfile, join
 from PyPDF2 import PdfFileReader
 
 
-# Получение текущей директории
-current_directory = os.path.dirname(os.path.abspath(__file__))
-# Получение имен файлов, имеющихся в текущей директории
-file_names = [name for name in listdir(current_directory) if isfile(join(current_directory, name))]
 # Выбор файлов с расширением pdf
-file_names = [name for name in file_names if os.path.splitext(name.lower())[1] == '.pdf']
-file_names.sort()
+p = pathlib.Path('.').glob('*.pdf')
+file_names = sorted([name for name in p if name.is_file()])
 
 # Выход из программы при отсутствии файлов pdf
 if len(file_names) == 0:
@@ -61,7 +55,7 @@ for name in file_names:
         document_A4_count += page_A4_count
         summary_A4_count += page_A4_count
         if index == pages_count - 1:
-            output_data.append('\t'.join([name, str(document_A4_count)]))
+            output_data.append('\t'.join([str(name), str(document_A4_count)]))
     in_stream.close()
 
 output_data.append('\n\nИтого документов:\t' + str(documents_count))
