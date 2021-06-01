@@ -1,6 +1,6 @@
 # Программа для скачивания книги "Математика с ключом 7 класс".
 # https://flipbook.nowaera.pl/dokumenty/Flipbook/Matematyka-z-kluczem-7/
-# Copyright (C) 2020 Evgeniy Ipatov
+# Copyright (C) 2020 - 2021 Evgeniy Ipatov
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

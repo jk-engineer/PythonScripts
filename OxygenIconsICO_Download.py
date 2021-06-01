@@ -1,6 +1,6 @@
 # Программа скачивает набор иконок в формате ICO с сайта:
 # http://www.iconarchive.com/show/oxygen-icons-by-oxygen-icons.org.1.html
-# Copyright (C) 2019 - 2020 Evgeniy Ipatov
+# Copyright (C) 2019 - 2021 Evgeniy Ipatov
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

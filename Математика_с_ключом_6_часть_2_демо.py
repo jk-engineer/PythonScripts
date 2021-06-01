@@ -1,6 +1,6 @@
 # Программа для скачивания демо-версии книги "Математика с ключом 6 класс. Часть 2".
 # https://flipbook.nowaera.pl/dokumenty/Flipbook/Matematyka-z-kluczem[PD][cz_2][kl_6][pr_2019]
-# Copyright (C) 2020 Evgeniy Ipatov
+# Copyright (C) 2020 - 2021 Evgeniy Ipatov
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

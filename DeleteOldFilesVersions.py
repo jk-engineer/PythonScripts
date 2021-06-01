@@ -2,7 +2,7 @@
 # Файлы должны иметь, например, следующие имена:
 #    document.pdf
 #    document_2020-10-26.pdf
-# Copyright (C) 2020 Evgeniy Ipatov
+# Copyright (C) 2020 - 2021 Evgeniy Ipatov
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

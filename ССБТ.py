@@ -1,6 +1,6 @@
 # Данная программа скачивает стандарты ССБТ с сайта Техэксперт.
 # http://docs.cntd.ru/
-# Copyright (C) 2019 - 2020 Evgeniy Ipatov
+# Copyright (C) 2019 - 2021 Evgeniy Ipatov
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
