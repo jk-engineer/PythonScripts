@@ -20,21 +20,15 @@
 # Программа считывает названия стандартов из текстового файла и каждый из них проверяет на актуальность на сайте Техэксперт.
 
 
-import os
+import pathlib
 import sys
 import webbrowser
 import WebScraper
-from os import listdir
-from os.path import isfile, join
 
 
-# Получение текущей директории
-current_directory = os.path.dirname(os.path.abspath(__file__))
-# Получение имен файлов, имеющихся в текущей директории
-file_names = [name for name in listdir(current_directory) if isfile(join(current_directory, name))]
 # Выбор файлов с расширением txt
-file_names = [name for name in file_names if os.path.splitext(name.lower())[1] == '.txt']
-file_names.sort()
+p = pathlib.Path('.').glob('*.txt')
+file_names = sorted([name for name in p if name.is_file()])
 
 # Выход из программы при отсутствии файлов txt
 if len(file_names) == 0:
@@ -70,8 +64,8 @@ for name in file_list:
 # Поиск стандартов на сайте Техэксперт
 print('Проверка стандартов...\n')
 ws = WebScraper.WebScraper()
-main_url = 'http://docs.cntd.ru'
-search_url = main_url + '/search/intellectual?q='
+main_url = 'https://docs.cntd.ru'
+search_url = main_url + '/search?q='
 failed_names = []
 check_need_links = []
 
@@ -81,8 +75,9 @@ for name in standard_names:
     parsed_page_search_results = ws.page_parser(request_url)
     document_links = []
     for element in parsed_page_search_results.find_all('a'):
-        if str(element.get('href')).count('/document/') > 0 and str(element.get('title')) == '':
-            document_links.append(str(element.get('href')))
+        href_value = str(element.get('href'))
+        if href_value.count('/document/') > 0 and 'document-list_i_lk' in element.get('class'):
+            document_links.append(href_value)
     checked_count += 1
     print('Проверено: ' + str(checked_count) + ' из ' + str(len(standard_names)))
     # Документы, которые не удалось найти
@@ -92,8 +87,15 @@ for name in standard_names:
     for link in document_links:
         parsed_page = ws.page_parser(main_url + link)
         # Поиск статуса стандарта на его странице по ключевому слову "Действующий"
-        status_data = list(ws.get_attribute_values_by_element_value(parsed_page, 'span', 'class', 'Действующий'))
-        if len(status_data) == 0:
+        status_flag = False
+        for element in parsed_page.find_all('div'):
+            class_value = element.get('class')
+            if class_value is None:
+                continue
+            if 'document-top-status_tx' in class_value and element.text == 'Действующий':
+                status_flag = True
+                break
+        if status_flag == False:
             check_need_links.append(main_url + link)
 
 # Отчет о завершении работы

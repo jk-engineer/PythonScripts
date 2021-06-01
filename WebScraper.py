@@ -47,7 +47,7 @@ class WebScraper():
         :param source_url: страница, обработанная html-парсером.
         :return:
         """
-        result = self.__session_object.get(str(source_url))
+        result = self.__session_object.get(str(source_url), verify=False)
         page = result.text
         return bSoup(page, 'html.parser')
 
