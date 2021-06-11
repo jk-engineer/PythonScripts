@@ -54,9 +54,8 @@ for name in file_names:
         # Количество форматов А4
         document_A4_count += page_A4_count
         summary_A4_count += page_A4_count
-        if index == pages_count - 1:
-            output_data.append('\t'.join([str(name), str(document_A4_count)]))
     in_stream.close()
+    output_data.append('\t'.join([str(name), str(document_A4_count)]))
 
 output_data.append('\n\nИтого документов:\t' + str(documents_count))
 output_data.append('\nИтого форматов А4:\t' + str(summary_A4_count))
