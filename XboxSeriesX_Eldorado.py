@@ -7,7 +7,7 @@ import time
 import webbrowser
 import winsound
 
-target_url = 'https://eldorado.ru/cat/detail/igrovaya-pristavka-microsoft-xbox-series-x/?utm_source=cms&utm_medium=email&utm_term=buy_button&utm_campaign=arrival_ready#addToCart'
+target_url = 'https://eldorado.ru/cat/detail/igrovaya-pristavka-microsoft-xbox-series-x/?utm_source=cms&utm_medium=email&utm_term=sku_link&utm_campaign=arrival_ready'
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0'}
 success_code = 200
 exit_flag = False
