@@ -18,7 +18,13 @@ session_object = requests.Session()
 while True:
     print(time.strftime('%H:%M:%S', time.localtime()))
     for index in range(0, random.randint(5, 10)):
-        response = session_object.get(target_url, headers=headers, verify=certifi.where())
+        ok_response = False
+        while not ok_response:
+            try:
+                response = session_object.get(target_url, headers=headers, verify=certifi.where())
+                ok_response = True
+            except:
+                session_object = requests.Session()
         parsed_page = bSoup(response.text, 'html.parser')
         results = [element.text for element in parsed_page.find_all('div') if element.get('class') is not None and 'kxa6' in element.get('class')]
         if 'Добавить в корзину' in results:
