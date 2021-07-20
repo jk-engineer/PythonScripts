@@ -39,7 +39,7 @@ while True:
             except:
                 session_object = requests.Session()
         parsed_page = bSoup(response.text, 'html.parser')
-        results = [element.text for element in parsed_page.find_all('div') if element.get('class') is not None and 'kxa6' in element.get('class')]
+        results = [element.text for element in parsed_page.find_all('div', class_='kxa6')]
         if 'Добавить в корзину' in results:
             exit_flag = True
             break
