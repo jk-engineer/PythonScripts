@@ -1,5 +1,5 @@
 # Программа для подсчета количества форматов А4 в файлах PDF.
-# Copyright (C) 2019 - 2021 Evgeniy Ipatov
+# Copyright (C) 2019 - 2023 Evgeniy Ipatov
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 
 import pathlib
 import sys
-from PyPDF2 import PdfFileReader
+from pypdf import PdfReader
 
 
 # Выбор файлов с расширением pdf
@@ -39,17 +39,17 @@ output_data.append('Документ:\tФорматов А4:\n\n')
 for name in file_names:
     # Чтение файла pdf
     in_stream = open(name, 'rb')
-    pdf_document = PdfFileReader(in_stream)
+    pdf_document = PdfReader(in_stream)
     # Количество листов в файле
-    pages_count = pdf_document.getNumPages()
+    pages_count = len(pdf_document.pages)
     # Подсчет количества форматов А4 в каждом листе
     # Алгоритм подсчета: вычисляется площадь каждого листа и делится на площадь формата А4. Полученное число округляется до целого.
     document_A4_count = 0
     for index in range(0, pages_count):
-        current_page = pdf_document.getPage(index)
+        current_page = pdf_document.pages[index]
         # Размеры страницы необходимо перевести из пунктов в мм
-        page_width = round(float(current_page.mediaBox.getWidth()) * convert_pt_to_mm)
-        page_height = round(float(current_page.mediaBox.getHeight()) * convert_pt_to_mm)
+        page_width = round(current_page.mediabox.width * convert_pt_to_mm)
+        page_height = round(current_page.mediabox.height * convert_pt_to_mm)
         page_A4_count = round(page_width * page_height / A4_size)
         # Количество форматов А4
         document_A4_count += page_A4_count
